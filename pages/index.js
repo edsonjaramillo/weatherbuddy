@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function Home() {
   const [zipcode, setZipcode] = useState('');
+  const [search, setSearch] = useState('Search');
   const router = useRouter();
 
   const handleSubmit = () => {
@@ -60,14 +61,10 @@ export default function Home() {
         <button
           className='p-2 bg-gray-800 w-2/4 mx-auto my-6 text-center text-white'
           type='submit'
+          onClick={() => setSearch('Loading...')}
         >
-          Search
+          {search}
         </button>
-        {/* <Link href={`/zipcode/${zipcode}`}>
-          <a className='p-2 bg-gray-800 w-2/4 mx-auto my-6 text-center text-white'>
-            Search
-          </a>
-        </Link> */}
       </form>
     </>
   );
