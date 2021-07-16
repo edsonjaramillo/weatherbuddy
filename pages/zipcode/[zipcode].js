@@ -23,6 +23,8 @@ const Zipcode = ({ forecast, name }) => {
   const getPercent = (value) => {
     if (value === 1) {
       return 100;
+    } else if (value === 0) {
+      return 0;
     } else {
       return String(value.toFixed(2)).replace('0.', '');
     }
@@ -41,7 +43,7 @@ const Zipcode = ({ forecast, name }) => {
 
   const { main, icon, description } = currentWeather[0];
   const { daily } = forecast;
-  console.log(typeof daily);
+  const editedDaily = daily.slice(0, daily.length - 1);
 
   return (
     <div className='bg-gray-900 min-h-screen'>
@@ -72,7 +74,7 @@ const Zipcode = ({ forecast, name }) => {
       </div>
 
       <div className='mt-8' id='daily'>
-        {daily.map(({ dt, temp, pop, weather }) => (
+        {editedDaily.map(({ dt, temp, pop, weather }) => (
           <div
             key={dt}
             className='flex justify-between text-white w-[90%] mx-auto p-1 text-lg'
