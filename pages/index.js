@@ -1,9 +1,15 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function Home() {
   const [zipcode, setZipcode] = useState('');
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    router.push(`/zipcode/${zipcode}`);
+  };
   return (
     <>
       <Head>
@@ -14,7 +20,10 @@ export default function Home() {
 
       <form
         className='flex flex-col mx-auto min-h-[100vh] justify-center appearance-none -py-20 bg-gray-900'
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
       >
         <div id='logo' className='my-4 flex mx-auto'>
           <svg
@@ -42,14 +51,23 @@ export default function Home() {
           id='zipcode'
           maxLength='5'
           minLength='5'
+          pattern='[0-9]{5}'
           placeholder='Enter Zipcode - Ex: 35976'
           onChange={(e) => setZipcode(e.target.value)}
+          title='5 Number Zipcode'
+          required
         />
-        <Link href={`/zipcode/${zipcode}`}>
+        <button
+          className='p-2 bg-gray-800 w-2/4 mx-auto my-6 text-center text-white'
+          type='submit'
+        >
+          Search
+        </button>
+        {/* <Link href={`/zipcode/${zipcode}`}>
           <a className='p-2 bg-gray-800 w-2/4 mx-auto my-6 text-center text-white'>
             Search
           </a>
-        </Link>
+        </Link> */}
       </form>
     </>
   );
