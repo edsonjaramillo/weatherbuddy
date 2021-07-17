@@ -2,8 +2,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import ZipCodeData from '../data/zipcode.json';
 
-export default function Home() {
+export default function Home({ zipcodedata }) {
+  // console.log(zipcodedata);
   const [zipcode, setZipcode] = useState('');
   const [search, setSearch] = useState('Search');
   const router = useRouter();
@@ -52,7 +54,6 @@ export default function Home() {
           id='zipcode'
           maxLength='5'
           minLength='5'
-          pattern='[0-9]{5}'
           placeholder='Enter Zipcode - Ex: 35976'
           onChange={(e) => setZipcode(e.target.value)}
           title='5 Number Zipcode'
@@ -69,3 +70,13 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps = async (ctx) => {
+  // const zipcodedata = ZipCodeData;
+  return {
+    props: {
+      data: null,
+      // zipcodedata: zipcodedata,
+    },
+  };
+};

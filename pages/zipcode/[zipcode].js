@@ -44,6 +44,9 @@ const Zipcode = ({ forecast, name }) => {
   const { main, icon, description } = currentWeather[0];
   const { daily } = forecast;
   const editedDaily = daily.slice(0, daily.length - 1);
+  const newDegree = `${currentWindDeg}deg`;
+
+  console.log(newDegree);
 
   return (
     <div className='bg-gray-900 min-h-screen'>
@@ -73,7 +76,7 @@ const Zipcode = ({ forecast, name }) => {
         </div>
       </div>
 
-      <div className='mt-8' id='daily'>
+      <div className='mt-8 ' id='daily'>
         {editedDaily.map(({ dt, temp, pop, weather }) => (
           <div
             key={dt}
@@ -84,7 +87,7 @@ const Zipcode = ({ forecast, name }) => {
             </p>
             <div className='flex'>
               <div className='flex'>
-                <div className='w-10'>
+                <div className='w-10 my-auto'>
                   <Image
                     src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
                     alt=''
@@ -93,7 +96,9 @@ const Zipcode = ({ forecast, name }) => {
                     layout='responsive'
                   />
                 </div>
-                <p className='mr-12 text-blue-400'>{`${getPercent(pop)}%`}</p>
+                <p className='mr-12 text-blue-400 text-base flex items-center'>{`${getPercent(
+                  pop
+                )}%`}</p>
               </div>
               <p className='mr-4'>{Math.round(temp.max)}</p>
               <p className='text-gray-400'>{Math.round(temp.min)}</p>
@@ -102,7 +107,41 @@ const Zipcode = ({ forecast, name }) => {
         ))}
       </div>
 
-      {/* <pre className='text-white'>{JSON.stringify(daily, null, 2)}</pre> */}
+      <div className='grid grid-cols-2 gap-2 w-[90%] mx-auto mt-5'>
+        <div className='bg-green-600 rounded-md p-2 flex font-semibold'>
+          <div id='winddirection'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              style={{ transform: 'rotate(40deg)' }}
+              className='h-5 w-5 mr-2 text-green-900'
+              viewBox='0 0 20 20'
+              fill='currentColor'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </div>
+          <p className='text-green-200'>{`${currentWindSpeed} MPH`}</p>
+        </div>
+        <div className='bg-blue-600 rounded-md p-2 flex'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 64 64'
+            className='w-5 h-5 text-blue-900 fill mr-2'
+          >
+            <path
+              data-name='layer1'
+              d='M51.9 40.1a20.6 20.6 0 0 0-1-4.9C46.9 20.8 32 2 32 2S17.1 20.8 13 35.2a20.6 20.6 0 0 0-1 4.9c0 .5-.1 1-.1 1.5A20.2 20.2 0 0 0 32 62a20.2 20.2 0 0 0 20-20.4c0-.5 0-1-.1-1.5z'
+              fill='currentColor'
+            ></path>
+          </svg>
+          <p className='text-blue-200'>{`${currentHumidity}% Humidity`}</p>
+        </div>
+      </div>
+      {/* <pre className='text-white'>{JSON.stringify(forecast, null, 2)}</pre> */}
     </div>
   );
 };
